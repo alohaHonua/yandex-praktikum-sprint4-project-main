@@ -13,21 +13,29 @@ public class OrderPageYandexScooter {
 
     //Заголовок на 1 странице оформления заказа
     private By orderHeader = By.xpath(".//div[contains(@class, 'Order_Header')]");
+
     //Поле ввода имени
     private By inputName = By.xpath(".//input[contains(@placeholder, 'Имя')]");
+    private By inputNameError = By.xpath(".//input[contains(@placeholder, 'Имя')]/following-sibling::div");
+
     //Поле ввода фамилии
     private By inputSurname = By.xpath(".//input[contains(@placeholder, 'Фамилия')]");
+    private By inputSurnameError = By.xpath(".//input[contains(@placeholder, 'Фамилия')]/following-sibling::div");
+
     //Поле ввода адреса
     private By inputAddress = By.xpath(".//input[contains(@placeholder, 'Адрес')]");
+    private By inputAddressError = By.xpath(".//input[contains(@placeholder, 'Адрес')]/following-sibling::div");
 
     //Поле ввода станции метро
     private By inputMetro = By.xpath(".//input[contains(@placeholder, 'Станция метро')]");
+    private By inputMetroError = By.xpath(".//div[contains(@class, 'MetroError')]");
 
     //Список станций
     private By stationsList = By.xpath(".//li/button");
 
     //Поле ввода телефона
     private By inputPhoneNumber = By.xpath(".//input[contains(@placeholder, 'Телефон')]");
+    private By inputPhoneError = By.xpath(".//input[contains(@placeholder, 'Телефон')]/following-sibling::div");
 
     //Кнопка "далее"
     private By buttonNext = By.xpath(".//button[text() = 'Далее']");
@@ -84,8 +92,6 @@ public class OrderPageYandexScooter {
         new WebDriverWait(driver,3)
                 .until(ExpectedConditions.textToBePresentInElementLocated(orderCompleted, text));
     }
-
-
 
     // Методы заполнения текстовых полей
     public void fillName(String text) {
@@ -148,4 +154,24 @@ public class OrderPageYandexScooter {
         elements.get(num).click();
     }
 
+    // Методы получения текста ошибок
+    public String getNameFieldError() {
+        return driver.findElement(inputNameError).getText();
+    }
+
+    public String getSurnameFieldError() {
+        return driver.findElement(inputSurnameError).getText();
+    }
+
+    public String getAddressFieldError() {
+        return driver.findElement(inputAddressError).getText();
+    }
+
+    public String getMetroFieldError() {
+        return driver.findElement(inputMetroError).getText();
+    }
+
+    public String getPhoneFieldError() {
+        return driver.findElement(inputPhoneError).getText();
+    }
 }
