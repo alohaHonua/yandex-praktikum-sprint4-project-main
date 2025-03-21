@@ -25,8 +25,8 @@ public class MainPageYandexScooter {
     //Кнопка "Заказать" в хидере
     private By orderButtonHeader = By.xpath(".//div[contains(@class, 'Header')]//button[text() = 'Заказать']");
 
-//Кнопка заказать в тексте страницы
-
+    //Кнопка заказать в тексте страницы
+    private By orderButtonBody = By.xpath(".//div[contains(@class, 'ThirdPart')]//button[text() = 'Заказать']");
 
     // Конструктор класса
     public MainPageYandexScooter(WebDriver driver) {
@@ -55,6 +55,11 @@ public class MainPageYandexScooter {
     // Метод, который нажимает кнопку "Заказать" в хидере
     public void clickOrderButtonHeader() {
         driver.findElement(orderButtonHeader).click();
+    }
+
+    // Метод, который нажимает кнопку "Заказать" в тексте
+    public void clickOrderButtonBody() {
+        driver.findElement(orderButtonBody).click();
     }
 
 }
