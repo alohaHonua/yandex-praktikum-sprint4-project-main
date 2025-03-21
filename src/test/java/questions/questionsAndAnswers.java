@@ -10,6 +10,7 @@ import ru.yandex.praktikum.BaseSteps;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(Parameterized.class)
@@ -59,7 +60,7 @@ public class questionsAndAnswers {
 
         MatcherAssert.assertThat(actualAnswer, is(answerText));
 
-}
+    }
 
     @After
     public void tearDown() {
