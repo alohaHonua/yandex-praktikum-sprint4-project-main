@@ -9,7 +9,7 @@ public class MainPageYandexScooter {
 
     private WebDriver driver;
 
-    //Лого в хидере
+    //Лого яндекса в хидере
     private By yandexLogo = By.xpath(".//a/img[@alt='Yandex']");
 
     //Заголовок "Вопросы о важном"
