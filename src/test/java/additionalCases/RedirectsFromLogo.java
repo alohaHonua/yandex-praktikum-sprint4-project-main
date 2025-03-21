@@ -1,7 +1,6 @@
 package additionalCases;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +10,7 @@ import ru.yandex.praktikum.MainPageYandexScooter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class redirectsFromLogo {
+public class RedirectsFromLogo {
 
     private WebDriver driver;
 

@@ -13,7 +13,7 @@ import ru.yandex.praktikum.OrderPageYandexScooter;
 
 @RunWith(Parameterized.class)
 
-public class orderForm {
+public class OrderForm {
 
     private final String name;
     private final String surname;
@@ -24,7 +24,7 @@ public class orderForm {
     private final int time;
     private final int color;
 
-    public orderForm(String name, String surname, String address, String metro, String phone, String date, int time, int color) {
+    public OrderForm(String name, String surname, String address, String metro, String phone, String date, int time, int color) {
         this.name = name;
         this.surname = surname;
         this.address = address;

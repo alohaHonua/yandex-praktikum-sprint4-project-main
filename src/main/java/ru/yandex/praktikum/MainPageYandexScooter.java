@@ -25,6 +25,9 @@ public class MainPageYandexScooter {
     //Кнопка "Заказать" в хидере
     private By orderButtonHeader = By.xpath(".//div[contains(@class, 'Header')]//button[text() = 'Заказать']");
 
+    //Кнопка "Статус заказа" в хидере
+    private By trackButton = By.xpath(".//div[contains(@class, 'Header')]//button[text() = 'Статус заказа']");
+
     //Кнопка заказать в тексте страницы
     private By orderButtonBody = By.xpath(".//div[contains(@class, 'ThirdPart')]//button[text() = 'Заказать']");
 
@@ -60,6 +63,11 @@ public class MainPageYandexScooter {
     // Метод, который нажимает кнопку "Заказать" в тексте
     public void clickOrderButtonBody() {
         driver.findElement(orderButtonBody).click();
+    }
+
+    // Метод, который нажимает кнопку "Статус заказа"
+    public void clickTrackButton() {
+        driver.findElement(trackButton).click();
     }
 
 }

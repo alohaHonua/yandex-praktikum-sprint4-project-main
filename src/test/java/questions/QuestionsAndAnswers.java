@@ -14,12 +14,12 @@ import org.junit.runners.Parameterized;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(Parameterized.class)
-public class questionsAndAnswers {
+public class QuestionsAndAnswers {
 
     private final String questionText;
     private final String answerText;
 
-    public questionsAndAnswers(String questionText, String answerText) {
+    public QuestionsAndAnswers(String questionText, String answerText) {
         this.questionText = questionText;
         this.answerText = answerText;
     }
