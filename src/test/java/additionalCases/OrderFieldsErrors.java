@@ -42,7 +42,7 @@ public class OrderFieldsErrors {
     private WebDriver driver;
 
     @Test
-    public void CheckErrorMessagesForOrderFields() {
+    public void CheckErrorMessageForNameField() {
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
         driver.get(scooterUrl);
@@ -59,20 +59,102 @@ public class OrderFieldsErrors {
         OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
 
         orderPage.waitForLoadHeader();
-
         orderPage.fillName(name);
+        orderPage.clickNextButton();
+        assertEquals("Введите корректное имя", orderPage.getNameFieldError());
+}
+
+    @Test
+    public void CheckErrorMessageForSurnameField() {
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
+        driver.get(scooterUrl);
+
+        //Закрыть поп-ап с куками
+        BaseSteps baseSteps = new BaseSteps(driver);
+        baseSteps.clickAcceptCookiesButton();
+
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+
+        mainPage.waitForLoadLogo();
+        mainPage.clickOrderButtonHeader();
+
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
+
+        orderPage.waitForLoadHeader();
         orderPage.fillSurname(surname);
+        orderPage.clickNextButton();
+        assertEquals("Введите корректную фамилию", orderPage.getSurnameFieldError());
+    }
+
+    @Test
+    public void CheckErrorMessageForAddressField() {
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
+        driver.get(scooterUrl);
+
+        //Закрыть поп-ап с куками
+        BaseSteps baseSteps = new BaseSteps(driver);
+        baseSteps.clickAcceptCookiesButton();
+
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+
+        mainPage.waitForLoadLogo();
+        mainPage.clickOrderButtonHeader();
+
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
+
+        orderPage.waitForLoadHeader();
         orderPage.fillAddress(address);
-        orderPage.fillPhoneNumber(phone);
+        orderPage.clickNextButton();
+        assertEquals("Введите корректный адрес", orderPage.getAddressFieldError());
+    }
+
+    @Test
+    public void CheckErrorMessageForMetroStationField() {
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
+        driver.get(scooterUrl);
+
+        //Закрыть поп-ап с куками
+        BaseSteps baseSteps = new BaseSteps(driver);
+        baseSteps.clickAcceptCookiesButton();
+
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+
+        mainPage.waitForLoadLogo();
+        mainPage.clickOrderButtonHeader();
+
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
+
+        orderPage.waitForLoadHeader();
         orderPage.fillMetro(metro);
         orderPage.clickNextButton();
-
-        assertEquals("Введите корректное имя", orderPage.getNameFieldError());
-        assertEquals("Введите корректную фамилию", orderPage.getSurnameFieldError());
-        assertEquals("Введите корректный адрес", orderPage.getAddressFieldError());
         assertEquals("Выберите станцию", orderPage.getMetroFieldError());
+    }
+
+    @Test
+    public void CheckErrorMessageForPhoneNumberField() {
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
+        driver.get(scooterUrl);
+
+        //Закрыть поп-ап с куками
+        BaseSteps baseSteps = new BaseSteps(driver);
+        baseSteps.clickAcceptCookiesButton();
+
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+
+        mainPage.waitForLoadLogo();
+        mainPage.clickOrderButtonHeader();
+
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
+
+        orderPage.waitForLoadHeader();
+        orderPage.fillPhoneNumber(phone);
+        orderPage.clickNextButton();
         assertEquals("Введите корректный номер", orderPage.getPhoneFieldError());
-}
+    }
 
 @After
 public void tearDown() {
