@@ -23,6 +23,7 @@ public class OrderForm {
     private final String date;
     private final int time;
     private final int color;
+    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
 
     public OrderForm(String name, String surname, String address, String metro, String phone, String date, int time, int color) {
         this.name = name;
@@ -50,7 +51,7 @@ public class OrderForm {
     public void orderFromHeader() {
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooterUrl);
 
         //Закрыть поп-ап с куками
         BaseSteps baseSteps = new BaseSteps(driver);
@@ -89,7 +90,7 @@ public class OrderForm {
     public void orderFromBody() {
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooterUrl);
 
         //Закрыть поп-ап с куками
         BaseSteps baseSteps = new BaseSteps(driver);

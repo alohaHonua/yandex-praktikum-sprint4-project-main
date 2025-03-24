@@ -11,12 +11,13 @@ import ru.yandex.praktikum.TrackingPageYandexScooter;
 public class TrackNotFoundCase {
 
     private WebDriver driver;
+    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
 
     @Test
     public void checkIfTrackNumberNotExists(){
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooterUrl);
 
         //Закрыть поп-ап с куками
         BaseSteps baseSteps = new BaseSteps(driver);

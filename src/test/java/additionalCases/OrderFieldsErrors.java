@@ -21,6 +21,8 @@ public class OrderFieldsErrors {
     private final String metro;
     private final String phone;
 
+    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
+
     public OrderFieldsErrors(String name, String surname, String address, String metro, String phone) {
         this.name = name;
         this.surname = surname;
@@ -43,7 +45,7 @@ public class OrderFieldsErrors {
     public void CheckErrorMessagesForOrderFields() {
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooterUrl);
 
         //Закрыть поп-ап с куками
         BaseSteps baseSteps = new BaseSteps(driver);

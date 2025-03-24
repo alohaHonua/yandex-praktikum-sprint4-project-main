@@ -13,12 +13,16 @@ import static org.junit.Assert.assertTrue;
 public class RedirectsFromLogo {
 
     private WebDriver driver;
+    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
+    private final static String yandexUrl = "https://dzen.ru/?yredirect=true";
+
+
 
     @Test
     public void ClickScooterLogoRedirectsOnMainPage() {
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooterUrl);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
@@ -32,7 +36,7 @@ public class RedirectsFromLogo {
     public void ClickYandexLogoRedirectsOnYandexPage() {
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooterUrl);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
@@ -40,7 +44,7 @@ public class RedirectsFromLogo {
         Object[] windowHandles = driver.getWindowHandles().toArray();
         driver.switchTo().window((String) windowHandles[1]);
         String newPageUrl = driver.getCurrentUrl();
-        assertEquals("https://dzen.ru/?yredirect=true",newPageUrl);
+        assertEquals(yandexUrl,newPageUrl);
     }
 
     @After
