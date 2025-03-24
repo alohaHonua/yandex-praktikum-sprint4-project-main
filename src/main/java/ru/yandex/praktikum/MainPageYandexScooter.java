@@ -12,6 +12,12 @@ public class MainPageYandexScooter {
     //Лого яндекса в хидере
     private By yandexLogo = By.xpath(".//a/img[@alt='Yandex']");
 
+    //Лого самоката в хидере
+    private By scooterLogo = By.xpath(".//a[contains(@class, 'Header_LogoScooter')]");
+
+    //Главная страница самоката
+    private By scooterMainPage = By.xpath(".//div[contains(@class, 'HomePage')]");
+
     //Заголовок "Вопросы о важном"
     private By questionsHeader = By.xpath(".//div[contains(text(), 'Вопросы о важном')]");
 
@@ -68,6 +74,21 @@ public class MainPageYandexScooter {
     // Метод, который нажимает кнопку "Статус заказа"
     public void clickTrackButton() {
         driver.findElement(trackButton).click();
+    }
+
+    // Метод клика на логотип Яндекса
+    public void yandexLogoClick() {
+            driver.findElement(yandexLogo).click();
+        }
+
+    // Метод клика на логотип Самоката
+    public void scooterLogoClick() {
+        driver.findElement(scooterLogo).click();
+    }
+
+    // Метод проверяет находимся ли мы на главной странице самоката
+    public Boolean isScooterMainPage() {
+        return driver.findElement(scooterMainPage).isDisplayed();
     }
 
 }

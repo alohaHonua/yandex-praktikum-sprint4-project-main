@@ -16,8 +16,6 @@ public class RedirectsFromLogo {
     private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
     private final static String yandexUrl = "https://dzen.ru/?yredirect=true";
 
-
-
     @Test
     public void ClickScooterLogoRedirectsOnMainPage() {
         ChromeOptions options = new ChromeOptions();
@@ -27,9 +25,9 @@ public class RedirectsFromLogo {
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
-        driver.findElement(By.xpath(".//a[contains(@class, 'Header_LogoScooter')]")).click();
+        mainPage.scooterLogoClick();
         mainPage.waitForLoadLogo();
-        assertTrue(driver.findElement(By.xpath(".//div[contains(@class, 'HomePage')]")).isDisplayed());
+        assertTrue(mainPage.isScooterMainPage());
     }
 
     @Test
@@ -40,7 +38,7 @@ public class RedirectsFromLogo {
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
-        driver.findElement(By.xpath(".//a/img[@alt='Yandex']")).click();
+        mainPage.yandexLogoClick();
         Object[] windowHandles = driver.getWindowHandles().toArray();
         driver.switchTo().window((String) windowHandles[1]);
         String newPageUrl = driver.getCurrentUrl();
