@@ -4,8 +4,6 @@ import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import ru.yandex.praktikum.BaseSteps;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import org.junit.runner.RunWith;
@@ -14,15 +12,15 @@ import org.junit.runners.Parameterized;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(Parameterized.class)
-public class QuestionsAndAnswers {
-
-    private final String questionText;
-    private final String answerText;
+public class QuestionsAndAnswers extends BaseSteps {
 
     public QuestionsAndAnswers(String questionText, String answerText) {
         this.questionText = questionText;
         this.answerText = answerText;
     }
+
+    private final String questionText;
+    private final String answerText;
 
     @Parameterized.Parameters
     public static Object[][] getQuestionsAndAnswers() {
@@ -39,32 +37,21 @@ public class QuestionsAndAnswers {
     }
 
     private WebDriver driver;
-    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
 
     @Test
     public void checkAnswersTest() {
-
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
-        //Закрыть поп-ап с куками
-        BaseSteps baseSteps = new BaseSteps(driver);
-        baseSteps.clickAcceptCookiesButton();
+        driver = getDriver();
+        clickAcceptCookiesButton(driver);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
-
         mainPage.waitForLoadLogo();
         mainPage.clickQuestionByText(questionText);
-
         String actualAnswer = mainPage.getAnswer(answerText);
-
         MatcherAssert.assertThat(actualAnswer, is(answerText));
-
     }
 
     @After
     public void tearDown() {
-        driver.quit();
+        closeBrowser(driver);
     }
 }

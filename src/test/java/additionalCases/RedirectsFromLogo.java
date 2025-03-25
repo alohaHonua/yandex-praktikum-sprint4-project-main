@@ -2,26 +2,24 @@ package additionalCases;
 
 import org.junit.After;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import ru.yandex.praktikum.BaseSteps;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RedirectsFromLogo {
+public class RedirectsFromLogo extends BaseSteps {
+
+    public RedirectsFromLogo() {
+        super();
+    }
 
     private WebDriver driver;
-    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
     private final static String yandexUrl = "https://dzen.ru/?yredirect=true";
 
     @Test
     public void ClickScooterLogoRedirectsOnMainPage() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
+        driver = getDriver();
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
@@ -32,10 +30,7 @@ public class RedirectsFromLogo {
 
     @Test
     public void ClickYandexLogoRedirectsOnYandexPage() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
+        driver = getDriver();
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
         mainPage.yandexLogoClick();
@@ -47,6 +42,6 @@ public class RedirectsFromLogo {
 
     @After
     public void tearDown() {
-        driver.quit();
+        closeBrowser(driver);
     }
 }

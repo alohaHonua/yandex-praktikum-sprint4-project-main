@@ -5,23 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import ru.yandex.praktikum.BaseSteps;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import ru.yandex.praktikum.OrderPageYandexScooter;
 import static org.testng.AssertJUnit.assertEquals;
 
 @RunWith(Parameterized.class)
-public class OrderFieldsErrors {
-
-    private final String name;
-    private final String surname;
-    private final String address;
-    private final String metro;
-    private final String phone;
-
-    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
+public class OrderFieldsErrors extends BaseSteps {
 
     public OrderFieldsErrors(String name, String surname, String address, String metro, String phone) {
         this.name = name;
@@ -31,6 +21,12 @@ public class OrderFieldsErrors {
         this.phone = phone;
 
     }
+
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metro;
+    private final String phone;
 
     @Parameterized.Parameters
     public static Object[][] getQuestionsAndAnswers() {
@@ -43,13 +39,8 @@ public class OrderFieldsErrors {
 
     @Test
     public void CheckErrorMessageForNameField() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
-        //Закрыть поп-ап с куками
-        BaseSteps baseSteps = new BaseSteps(driver);
-        baseSteps.clickAcceptCookiesButton();
+        driver = getDriver();
+        clickAcceptCookiesButton(driver);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
 
@@ -66,13 +57,8 @@ public class OrderFieldsErrors {
 
     @Test
     public void CheckErrorMessageForSurnameField() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
-        //Закрыть поп-ап с куками
-        BaseSteps baseSteps = new BaseSteps(driver);
-        baseSteps.clickAcceptCookiesButton();
+        driver = getDriver();
+        clickAcceptCookiesButton(driver);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
 
@@ -89,13 +75,8 @@ public class OrderFieldsErrors {
 
     @Test
     public void CheckErrorMessageForAddressField() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
-        //Закрыть поп-ап с куками
-        BaseSteps baseSteps = new BaseSteps(driver);
-        baseSteps.clickAcceptCookiesButton();
+        driver = getDriver();
+        clickAcceptCookiesButton(driver);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
 
@@ -112,13 +93,8 @@ public class OrderFieldsErrors {
 
     @Test
     public void CheckErrorMessageForMetroStationField() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
-        //Закрыть поп-ап с куками
-        BaseSteps baseSteps = new BaseSteps(driver);
-        baseSteps.clickAcceptCookiesButton();
+        driver = getDriver();
+        clickAcceptCookiesButton(driver);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
 
@@ -135,13 +111,8 @@ public class OrderFieldsErrors {
 
     @Test
     public void CheckErrorMessageForPhoneNumberField() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
-        //Закрыть поп-ап с куками
-        BaseSteps baseSteps = new BaseSteps(driver);
-        baseSteps.clickAcceptCookiesButton();
+        driver = getDriver();
+        clickAcceptCookiesButton(driver);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
 
@@ -158,6 +129,6 @@ public class OrderFieldsErrors {
 
 @After
 public void tearDown() {
-    driver.quit();
+    closeBrowser(driver);
 }
 }

@@ -5,25 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import ru.yandex.praktikum.BaseSteps;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import ru.yandex.praktikum.OrderPageYandexScooter;
 
 @RunWith(Parameterized.class)
 
-public class OrderForm {
-
-    private final String name;
-    private final String surname;
-    private final String address;
-    private final String metro;
-    private final String phone;
-    private final String date;
-    private final int time;
-    private final int color;
-    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
+public class OrderForm extends BaseSteps {
 
     public OrderForm(String name, String surname, String address, String metro, String phone, String date, int time, int color) {
         this.name = name;
@@ -35,6 +23,15 @@ public class OrderForm {
         this.time = time;
         this.color = color;
     }
+
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metro;
+    private final String phone;
+    private final String date;
+    private final int time;
+    private final int color;
 
     @Parameterized.Parameters
     public static Object[][] getQuestionsAndAnswers() {
@@ -49,23 +46,15 @@ public class OrderForm {
 
     @Test
     public void orderFromHeader() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
-        //Закрыть поп-ап с куками
-        BaseSteps baseSteps = new BaseSteps(driver);
-        baseSteps.clickAcceptCookiesButton();
+        driver = getDriver();
+        clickAcceptCookiesButton(driver);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
-
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
 
         OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
-
         orderPage.waitForLoadHeader();
-
         orderPage.fillName(name);
         orderPage.fillSurname(surname);
         orderPage.fillAddress(address);
@@ -74,37 +63,26 @@ public class OrderForm {
         orderPage.fillPhoneNumber(phone);
         orderPage.clickNextButton();
         orderPage.waitForLoadHeaderDetails();
-
         orderPage.chooseOrderDate(date);
         orderPage.chooseOrderTime(time);
         orderPage.chooseScooterColor(color);
         orderPage.clickOrderButton();
-
         orderPage.waitForConfirmationModal();
         orderPage.clickConfirmOrderButton();
-
         orderPage.waitForOrderBecomeCompleted("Заказ оформлен");
     }
 
     @Test
     public void orderFromBody() {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
-
-        //Закрыть поп-ап с куками
-        BaseSteps baseSteps = new BaseSteps(driver);
-        baseSteps.clickAcceptCookiesButton();
+        driver = getDriver();
+        clickAcceptCookiesButton(driver);
 
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
-
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonBody();
 
         OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
-
         orderPage.waitForLoadHeader();
-
         orderPage.fillName(name);
         orderPage.fillSurname(surname);
         orderPage.fillAddress(address);
@@ -113,20 +91,17 @@ public class OrderForm {
         orderPage.fillPhoneNumber(phone);
         orderPage.clickNextButton();
         orderPage.waitForLoadHeaderDetails();
-
         orderPage.chooseOrderDate(date);
         orderPage.chooseOrderTime(time);
         orderPage.chooseScooterColor(color);
         orderPage.clickOrderButton();
-
         orderPage.waitForConfirmationModal();
         orderPage.clickConfirmOrderButton();
-
         orderPage.waitForOrderBecomeCompleted("Заказ оформлен");
     }
 
     @After
     public void tearDown() {
-        driver.quit();
+        closeBrowser(driver);
     }
 }
