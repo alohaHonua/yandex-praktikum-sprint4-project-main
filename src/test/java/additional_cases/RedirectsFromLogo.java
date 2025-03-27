@@ -1,26 +1,24 @@
-package additionalCases;
+package additional_cases;
 
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import ru.yandex.praktikum.BaseSteps;
+import ru.yandex.praktikum.BrowserRule;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RedirectsFromLogo extends BaseSteps {
+public class RedirectsFromLogo {
 
-    public RedirectsFromLogo() {
-        super();
-    }
+    @Rule
+    public final BrowserRule browserRule = new BrowserRule();
 
+    private final static String YANDEX_URL = "https://dzen.ru/?yredirect=true";
     private WebDriver driver;
-    private final static String yandexUrl = "https://dzen.ru/?yredirect=true";
 
     @Test
-    public void ClickScooterLogoRedirectsOnMainPage() {
-        driver = getDriver();
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+    public void clickScooterLogoRedirectsOnMainPage() {
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
         mainPage.scooterLogoClick();
@@ -29,19 +27,15 @@ public class RedirectsFromLogo extends BaseSteps {
     }
 
     @Test
-    public void ClickYandexLogoRedirectsOnYandexPage() {
-        driver = getDriver();
+    public void clickYandexLogoRedirectsOnYandexPage() {
+        driver = browserRule.getWebDriver();
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
         mainPage.yandexLogoClick();
         Object[] windowHandles = driver.getWindowHandles().toArray();
         driver.switchTo().window((String) windowHandles[1]);
         String newPageUrl = driver.getCurrentUrl();
-        assertEquals(yandexUrl,newPageUrl);
+        assertEquals(YANDEX_URL,newPageUrl);
     }
 
-    @After
-    public void tearDown() {
-        closeBrowser(driver);
-    }
 }
