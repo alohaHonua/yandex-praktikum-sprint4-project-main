@@ -1,4 +1,4 @@
-package additionalCases;
+package additional_сases;
 
 import org.junit.After;
 import org.junit.Test;
@@ -15,10 +15,10 @@ public class RedirectsFromLogo extends BaseSteps {
     }
 
     private WebDriver driver;
-    private final static String yandexUrl = "https://dzen.ru/?yredirect=true";
+    private final static String YANDEX_URL = "https://dzen.ru/?yredirect=true";
 
     @Test
-    public void ClickScooterLogoRedirectsOnMainPage() {
+    public void clickScooterLogoRedirectsOnMainPage() {
         driver = getDriver();
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
@@ -29,7 +29,7 @@ public class RedirectsFromLogo extends BaseSteps {
     }
 
     @Test
-    public void ClickYandexLogoRedirectsOnYandexPage() {
+    public void clickYandexLogoRedirectsOnYandexPage() {
         driver = getDriver();
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
@@ -37,7 +37,7 @@ public class RedirectsFromLogo extends BaseSteps {
         Object[] windowHandles = driver.getWindowHandles().toArray();
         driver.switchTo().window((String) windowHandles[1]);
         String newPageUrl = driver.getCurrentUrl();
-        assertEquals(yandexUrl,newPageUrl);
+        assertEquals(YANDEX_URL,newPageUrl);
     }
 
     @After

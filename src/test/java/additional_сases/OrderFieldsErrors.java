@@ -1,4 +1,4 @@
-package additionalCases;
+package additional_сases;
 
 import org.junit.After;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class OrderFieldsErrors extends BaseSteps {
     private WebDriver driver;
 
     @Test
-    public void CheckErrorMessageForNameField() {
+    public void checkErrorMessageForNameField() {
         driver = getDriver();
         clickAcceptCookiesButton(driver);
 
@@ -56,7 +56,7 @@ public class OrderFieldsErrors extends BaseSteps {
 }
 
     @Test
-    public void CheckErrorMessageForSurnameField() {
+    public void checkErrorMessageForSurnameField() {
         driver = getDriver();
         clickAcceptCookiesButton(driver);
 
@@ -74,7 +74,7 @@ public class OrderFieldsErrors extends BaseSteps {
     }
 
     @Test
-    public void CheckErrorMessageForAddressField() {
+    public void checkErrorMessageForAddressField() {
         driver = getDriver();
         clickAcceptCookiesButton(driver);
 
@@ -92,7 +92,7 @@ public class OrderFieldsErrors extends BaseSteps {
     }
 
     @Test
-    public void CheckErrorMessageForMetroStationField() {
+    public void checkErrorMessageForMetroStationField() {
         driver = getDriver();
         clickAcceptCookiesButton(driver);
 
@@ -110,7 +110,7 @@ public class OrderFieldsErrors extends BaseSteps {
     }
 
     @Test
-    public void CheckErrorMessageForPhoneNumberField() {
+    public void checkErrorMessageForPhoneNumberField() {
         driver = getDriver();
         clickAcceptCookiesButton(driver);
 
@@ -127,7 +127,7 @@ public class OrderFieldsErrors extends BaseSteps {
         assertEquals("Введите корректный номер", orderPage.getPhoneFieldError());
     }
 
-@After
+    @After
 public void tearDown() {
     closeBrowser(driver);
 }

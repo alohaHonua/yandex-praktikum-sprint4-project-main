@@ -1,4 +1,4 @@
-package additionalCases;
+package additional_сases;
 
 import org.junit.After;
 import org.junit.Test;

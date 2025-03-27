@@ -7,16 +7,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class BaseSteps {
 
-    public BaseSteps(){
-    }
-
-    private final static String scooterUrl = "https://qa-scooter.praktikum-services.ru/";
+    private final static String SCOOTER_URL = "https://qa-scooter.praktikum-services.ru/";
 
     protected WebDriver getDriver() {
         WebDriver driver;
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
-        driver.get(scooterUrl);
+        driver.get(SCOOTER_URL);
         return driver;
     }
 
