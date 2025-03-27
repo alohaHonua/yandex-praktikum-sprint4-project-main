@@ -1,17 +1,28 @@
 package order;
 
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import ru.yandex.praktikum.BaseSteps;
+import ru.yandex.praktikum.BrowserRule;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import ru.yandex.praktikum.OrderPageYandexScooter;
 
 @RunWith(Parameterized.class)
 
-public class OrderForm extends BaseSteps {
+public class OrderForm {
+
+    @Rule
+    public final BrowserRule browserRule = new BrowserRule();
+
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metro;
+    private final String phone;
+    private final String date;
+    private final int time;
+    private final int color;
 
     public OrderForm(String name, String surname, String address, String metro, String phone, String date, int time, int color) {
         this.name = name;
@@ -24,15 +35,6 @@ public class OrderForm extends BaseSteps {
         this.color = color;
     }
 
-    private final String name;
-    private final String surname;
-    private final String address;
-    private final String metro;
-    private final String phone;
-    private final String date;
-    private final int time;
-    private final int color;
-
     @Parameterized.Parameters
     public static Object[][] getQuestionsAndAnswers() {
         return new Object[][]{
@@ -42,18 +44,13 @@ public class OrderForm extends BaseSteps {
         };
     }
 
-    private WebDriver driver;
-
     @Test
     public void orderFromHeader() {
-        driver = getDriver();
-        clickAcceptCookiesButton(driver);
-
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
 
-        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(browserRule.getWebDriver());
         orderPage.waitForLoadHeader();
         orderPage.fillName(name);
         orderPage.fillSurname(surname);
@@ -74,14 +71,11 @@ public class OrderForm extends BaseSteps {
 
     @Test
     public void orderFromBody() {
-        driver = getDriver();
-        clickAcceptCookiesButton(driver);
-
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonBody();
 
-        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(browserRule.getWebDriver());
         orderPage.waitForLoadHeader();
         orderPage.fillName(name);
         orderPage.fillSurname(surname);
@@ -100,8 +94,4 @@ public class OrderForm extends BaseSteps {
         orderPage.waitForOrderBecomeCompleted("Заказ оформлен");
     }
 
-    @After
-    public void tearDown() {
-        closeBrowser(driver);
-    }
 }

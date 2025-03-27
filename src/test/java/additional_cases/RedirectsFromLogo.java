@@ -1,26 +1,24 @@
-package additional_сases;
+package additional_cases;
 
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import ru.yandex.praktikum.BaseSteps;
+import ru.yandex.praktikum.BrowserRule;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RedirectsFromLogo extends BaseSteps {
+public class RedirectsFromLogo {
 
-    public RedirectsFromLogo() {
-        super();
-    }
+    @Rule
+    public final BrowserRule browserRule = new BrowserRule();
 
-    private WebDriver driver;
     private final static String YANDEX_URL = "https://dzen.ru/?yredirect=true";
+    private WebDriver driver;
 
     @Test
     public void clickScooterLogoRedirectsOnMainPage() {
-        driver = getDriver();
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
         mainPage.scooterLogoClick();
@@ -30,7 +28,7 @@ public class RedirectsFromLogo extends BaseSteps {
 
     @Test
     public void clickYandexLogoRedirectsOnYandexPage() {
-        driver = getDriver();
+        driver = browserRule.getWebDriver();
         MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
         mainPage.waitForLoadLogo();
         mainPage.yandexLogoClick();
@@ -40,8 +38,4 @@ public class RedirectsFromLogo extends BaseSteps {
         assertEquals(YANDEX_URL,newPageUrl);
     }
 
-    @After
-    public void tearDown() {
-        closeBrowser(driver);
-    }
 }

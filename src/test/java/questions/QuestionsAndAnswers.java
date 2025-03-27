@@ -1,10 +1,9 @@
 package questions;
 
 import org.hamcrest.MatcherAssert;
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import ru.yandex.praktikum.BaseSteps;
+import ru.yandex.praktikum.BrowserRule;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,7 +11,10 @@ import org.junit.runners.Parameterized;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(Parameterized.class)
-public class QuestionsAndAnswers extends BaseSteps {
+public class QuestionsAndAnswers {
+
+    @Rule
+    public final BrowserRule browserRule = new BrowserRule();
 
     public QuestionsAndAnswers(String questionText, String answerText) {
         this.questionText = questionText;
@@ -36,22 +38,13 @@ public class QuestionsAndAnswers extends BaseSteps {
         };
     }
 
-    private WebDriver driver;
-
     @Test
     public void checkAnswersTest() {
-        driver = getDriver();
-        clickAcceptCookiesButton(driver);
-
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickQuestionByText(questionText);
         String actualAnswer = mainPage.getAnswer(answerText);
         MatcherAssert.assertThat(actualAnswer, is(answerText));
     }
 
-    @After
-    public void tearDown() {
-        closeBrowser(driver);
-    }
 }

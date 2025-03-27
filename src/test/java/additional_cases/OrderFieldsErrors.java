@@ -1,17 +1,26 @@
-package additional_сases;
+package additional_cases;
 
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import ru.yandex.praktikum.BaseSteps;
+import ru.yandex.praktikum.BrowserRule;
 import ru.yandex.praktikum.MainPageYandexScooter;
 import ru.yandex.praktikum.OrderPageYandexScooter;
-import static org.testng.AssertJUnit.assertEquals;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class OrderFieldsErrors extends BaseSteps {
+public class OrderFieldsErrors {
+
+    @Rule
+    public final BrowserRule browserRule = new BrowserRule();
+
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metro;
+    private final String phone;
 
     public OrderFieldsErrors(String name, String surname, String address, String metro, String phone) {
         this.name = name;
@@ -19,14 +28,7 @@ public class OrderFieldsErrors extends BaseSteps {
         this.address = address;
         this.metro = metro;
         this.phone = phone;
-
     }
-
-    private final String name;
-    private final String surname;
-    private final String address;
-    private final String metro;
-    private final String phone;
 
     @Parameterized.Parameters
     public static Object[][] getQuestionsAndAnswers() {
@@ -35,20 +37,15 @@ public class OrderFieldsErrors extends BaseSteps {
                 {"Пётр 1", "Император всероссийский", "Г.МОСКВА, МУНИЦИПАЛЬНЫЙ ОКРУГ ПРЕСНЕНСКИЙ, УЛ ЛИТВИНА-СЕДОГО, Д. 2/13, К. В, СТР. 1, ПОМЕЩ. 1Ц", "Петра 1", "один два три четыре"},
         };
     }
-    private WebDriver driver;
+
 
     @Test
     public void checkErrorMessageForNameField() {
-        driver = getDriver();
-        clickAcceptCookiesButton(driver);
-
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
-
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
 
-        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
-
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(browserRule.getWebDriver());
         orderPage.waitForLoadHeader();
         orderPage.fillName(name);
         orderPage.clickNextButton();
@@ -57,16 +54,11 @@ public class OrderFieldsErrors extends BaseSteps {
 
     @Test
     public void checkErrorMessageForSurnameField() {
-        driver = getDriver();
-        clickAcceptCookiesButton(driver);
-
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
-
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
 
-        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
-
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(browserRule.getWebDriver());
         orderPage.waitForLoadHeader();
         orderPage.fillSurname(surname);
         orderPage.clickNextButton();
@@ -75,16 +67,11 @@ public class OrderFieldsErrors extends BaseSteps {
 
     @Test
     public void checkErrorMessageForAddressField() {
-        driver = getDriver();
-        clickAcceptCookiesButton(driver);
-
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
-
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
 
-        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
-
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(browserRule.getWebDriver());
         orderPage.waitForLoadHeader();
         orderPage.fillAddress(address);
         orderPage.clickNextButton();
@@ -93,16 +80,11 @@ public class OrderFieldsErrors extends BaseSteps {
 
     @Test
     public void checkErrorMessageForMetroStationField() {
-        driver = getDriver();
-        clickAcceptCookiesButton(driver);
-
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
-
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
 
-        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
-
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(browserRule.getWebDriver());
         orderPage.waitForLoadHeader();
         orderPage.fillMetro(metro);
         orderPage.clickNextButton();
@@ -111,24 +93,15 @@ public class OrderFieldsErrors extends BaseSteps {
 
     @Test
     public void checkErrorMessageForPhoneNumberField() {
-        driver = getDriver();
-        clickAcceptCookiesButton(driver);
-
-        MainPageYandexScooter mainPage = new MainPageYandexScooter(driver);
-
+        MainPageYandexScooter mainPage = new MainPageYandexScooter(browserRule.getWebDriver());
         mainPage.waitForLoadLogo();
         mainPage.clickOrderButtonHeader();
 
-        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(driver);
-
+        OrderPageYandexScooter orderPage = new OrderPageYandexScooter(browserRule.getWebDriver());
         orderPage.waitForLoadHeader();
         orderPage.fillPhoneNumber(phone);
         orderPage.clickNextButton();
         assertEquals("Введите корректный номер", orderPage.getPhoneFieldError());
     }
 
-    @After
-public void tearDown() {
-    closeBrowser(driver);
-}
 }
